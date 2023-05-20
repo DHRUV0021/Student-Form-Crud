@@ -1,0 +1,209 @@
+<!-- ==================================================================== 
+                                HEADER
+===================================================================== -->
+<header>
+    <nav class="navbar navbar-light bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand  text-white ">STUDENT-FORM</a>
+            <form class="d-flex">
+                <input class="form-control p-2 me-2 bg-light text-center" type="search" name="search"
+                    placeholder="Search" (keyup)="typeSearchData()" [(ngModel)]="searchValue" aria-label="Search">
+            </form>
+        </div>
+    </nav>
+</header>
+<br><br><br><br>
+
+<!-- ==================================================================== 
+                                TABLE
+===================================================================== -->
+
+<section class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource">
+
+                    <!-- id COLUMN -->
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef> No. </th>
+                        <td mat-cell *matCellDef="let element , let i = index"> {{i++1}} </td>
+                    </ng-container>
+
+                    <!-- COMPANYNAME COLUMN -->
+                    <ng-container matColumnDef="companyName">
+                        <th mat-header-cell *matHeaderCellDef> Company-name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.companyname}} </td>
+                    </ng-container>
+
+                    <!-- FIRS-TNAME COLUMN -->
+                    <ng-container matColumnDef="firstname">
+                        <th mat-header-cell *matHeaderCellDef> First-name </th>
+                        <td mat-cell *matCellDef="let element "> {{element.fname}} </td>
+                    </ng-container>
+
+                    <!-- LAST-NAME COLUMN -->
+                    <ng-container matColumnDef="lastName">
+                        <th mat-header-cell *matHeaderCellDef> Last-name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.lname}} </td>
+                    </ng-container>
+
+                    <!-- EMAIL COLUMN -->
+                    <ng-container matColumnDef="Email">
+                        <th mat-header-cell *matHeaderCellDef> Email </th>
+                        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                    </ng-container>
+
+                    <!-- MOBILE-NO COLUMN -->
+                    <ng-container matColumnDef="mobileNo">
+                        <th mat-header-cell *matHeaderCellDef> Mobile-no </th>
+                        <td mat-cell *matCellDef="let element"> {{element.mobileno}} </td>
+                    </ng-container>
+
+                    <!-- SALARY COLUMN -->
+                    <ng-container matColumnDef="salary">
+                        <th mat-header-cell *matHeaderCellDef> Salary </th>
+                        <td mat-cell *matCellDef="let element"> {{element.salary}} </td>
+                    </ng-container>
+
+                    <!-- CITY COLUMN -->
+                    <ng-container matColumnDef="city">
+                        <th mat-header-cell *matHeaderCellDef> City </th>
+                        <td mat-cell *matCellDef="let element"> {{element.address.city}} </td>
+                    </ng-container>
+
+                    <!-- BLOCK-NO COLUMN -->
+                    <ng-container matColumnDef="Blockno">
+                        <th mat-header-cell *matHeaderCellDef> Block-no </th>
+                        <td mat-cell *matCellDef="let element"> {{element.address.blockno}} </td>
+                    </ng-container>
+
+                    <!-- AADHAAR-CARD-NO COLUMN -->
+                    <ng-container matColumnDef="Aadhaarno">
+                        <th mat-header-cell *matHeaderCellDef> Aadhaar-no </th>
+                        <td mat-cell *matCellDef="let element"> {{element.parsonalDetalis.aadhaarno}} </td>
+                    </ng-container>
+
+                    <!-- PAN-CARD-NO COLUMN -->
+                    <ng-container matColumnDef="panno">
+                        <th mat-header-cell *matHeaderCellDef> Pancard-no </th>
+                        <td mat-cell *matCellDef="let element"> {{element.parsonalDetalis.panno}} </td>
+                    </ng-container>
+
+                    <!-- PASSBOOK-NO COLUMN -->
+                    <ng-container matColumnDef="passbookno">
+                        <th mat-header-cell *matHeaderCellDef> Passbook-no </th>
+                        <td mat-cell *matCellDef="let element"> {{element.parsonalDetalis.passbookno}} </td>
+                    </ng-container>
+
+
+                    <!-- ACTION COLUMN -->
+                    <ng-container matColumnDef="Action">
+                        <th mat-header-cell *matHeaderCellDef> Action </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div>
+                                <i class="bi bi-pencil-square Edit" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" (click)="FillData(element)"></i>
+                                <i class="bi bi-trash3-fill Delete" (click)="deleteData(element)"></i>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================================================================== 
+                                ADD MODEL
+===================================================================== -->
+
+<!-- Button trigger modal -->
+<button type="button" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="clearEdit()">
+    <i class="bi bi-plus-circle-fill fs-1"></i>
+</button>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content">
+            <div class="modal-header d-block mt-3">
+                <!-- input Box -->
+                <div class="mb-3 w-100">
+                    <input type="email" class="form-control" name="cm" id="exampleFormControlInput1"
+                        placeholder="Compny Name" [(ngModel)]="task.companyname">
+                </div>
+                <div class="row d-flex">
+                    <div class="mb-3 w-50">
+                        <input type="text" class="form-control" name="fn" required maxlength="15"
+                            id="exampleFormControlInput1" placeholder="First Name" [(ngModel)]="task.fname">
+                    </div>
+                    <div class="mb-3 w-50">
+                        <input type="text" class="form-control" name="ln" required maxlength="15"
+                            id="exampleFormControlInput1" placeholder="Last Name" [(ngModel)]="task.lname">
+                    </div>
+                </div>
+                <div class="row d-flex">
+                    <div class="mb-3 w-50">
+                        <input type="email" class="form-control" name="em" required email id="exampleFormControlInput1"
+                            placeholder="Email" [(ngModel)]="task.email">
+                    </div>
+                    <div class="mb-3 w-50">
+                        <input type="text" class="form-control" name="mo" id="exampleFormControlInput1"
+                            placeholder="Mobile No" [(ngModel)]="task.mobileno">
+                    </div>
+                </div>
+                <div class="row d-flex">
+                    <div class="mb-3 w-50">
+                        <input type="text" class="form-control" name="sl" id="exampleFormControlInput1"
+                            placeholder="Salary" [(ngModel)]="task.salary">
+                    </div>
+                    <div class="mb-3 w-50">
+                        <input type="text" class="form-control" name="cy" id="exampleFormControlInput1"
+                            placeholder="City" [(ngModel)]="task.address .city">
+                    </div>
+                </div>
+                <div class="row d-flex">
+                    <div class="mb-3 w-50">
+                        <input type="text" class="form-control" name="bn" id="exampleFormControlInput1"
+                            placeholder="block No" [(ngModel)]="task.address .blockno">
+                    </div>
+                    <div class="mb-3 w-50">
+                        <input type="text" class="form-control" name="ad" required minlength="12" required
+                            maxlength="12" id="exampleFormControlInput1" placeholder="addhar No"
+                            [(ngModel)]="task.parsonalDetalis.aadhaarno">
+                    </div>
+                </div>
+                <div class="row d-flex">
+                    <div class="mb-3 w-50">
+                        <input type="text" class="form-control" name="pn" required minlength="12" required
+                            maxlength="12" id="exampleFormControlInput1" placeholder="pan No"
+                            [(ngModel)]="task.parsonalDetalis.panno">
+                    </div>
+                    <div class="mb-3 w-50">
+                        <input type="text" class="form-control" name="pbn" required minlength="12" required
+                            maxlength="12" id="exampleFormControlInput1" placeholder="passBook No"
+                            [(ngModel)]="task.parsonalDetalis.passbookno">
+                    </div>
+                </div>
+
+                <!-- ==================================================================== 
+                                ADD DATA
+===================================================================== -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        (click)="clearEdit()">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="addData()">ADD</button>
+                </div>
+            </div>
+        </div>
+    </div>

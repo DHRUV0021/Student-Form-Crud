@@ -1,0 +1,22 @@
+{
+  "Student": [
+    {
+      "id": 1,
+      "address": {
+        "city": "aaaa",
+        "blockno": "2"
+      },
+      "parsonalDetalis": {
+        "aadhaarno": "4553451",
+        "passbookno": "556545478454",
+        "panno": "25695216542"
+      },
+      "companyname": "aaaa",
+      "fname": "aaaa",
+      "lname": "aaa",
+      "email": "aaa",
+      "mobileno": "12312333232",
+      "salary": "132323"
+    }
+  ]
+}
