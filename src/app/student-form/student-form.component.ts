@@ -30,9 +30,7 @@ export class StudentFormComponent {
     this.getData();
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
+  
 
   //=================GET DATA METHOD
   getData() {
@@ -41,6 +39,7 @@ export class StudentFormComponent {
         console.log(res);
         this.allData = res;
         this.dataSource = new MatTableDataSource<Data>(this.allData);
+        this.dataSource.paginator = this.paginator;
       },
       error: (err) => {
         console.log(err);
@@ -58,6 +57,7 @@ export class StudentFormComponent {
       this.data.addItem(this.task).subscribe({
         next: (res) => {
           console.log(res);
+          this.getData();
           this.task = new Data;
           this.task.address = new Addressing;
           this.task.parsonalDetalis = new PersonalData;
@@ -140,4 +140,9 @@ export class StudentFormComponent {
     this.updateAddBtn = false;
     this.clearData = true;
   }
+
+  pagenations(){
+    this.dataSource.paginator = this.paginator;
+  }
+
 }

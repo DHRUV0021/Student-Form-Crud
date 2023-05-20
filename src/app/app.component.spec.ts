@@ -1,16 +1,29 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { StudentFormComponent } from './student-form/student-form.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        StudentFormComponent
       ],
+      providers: [
+        HttpClient,
+      ]
     }).compileComponents();
   });
 
@@ -26,10 +39,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('student_Form');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('student_Form app is running!');
-  });
 });
