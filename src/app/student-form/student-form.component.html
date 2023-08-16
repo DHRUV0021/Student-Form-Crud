@@ -2,15 +2,18 @@
                                 HEADER
 ===================================================================== -->
 <header>
-    <nav class="navbar navbar-light bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand  text-white ">STUDENT-FORM</a>
-            <form class="d-flex">
-                <input class="form-control p-2 me-2 bg-light text-center" type="search" name="search"
-                    placeholder="Search" (keyup)="typeSearchData()" [(ngModel)]="searchValue" aria-label="Search">
-            </form>
-        </div>
-    </nav>
+    <mat-toolbar color="primary">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>STUDENT-FORM</span>
+        <span class="example-spacer"></span>
+
+        <form class="d-flex">
+            <input class="form-control p-2 me-2 bg-light text-center" type="search" name="search" placeholder="Search"
+                (keyup)="typeSearchData()" [(ngModel)]="searchValue" aria-label="Search">
+        </form>
+    </mat-toolbar>
 </header>
 <br><br><br><br>
 
@@ -102,9 +105,9 @@
                         <th mat-header-cell *matHeaderCellDef> Action </th>
                         <td mat-cell *matCellDef="let element">
                             <div>
-                                <i class="bi bi-pencil-square Edit" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" (click)="FillData(element)"></i>
-                                <i class="bi bi-trash3-fill Delete" (click)="deleteData(element)"></i>
+                                <button mat-raised-button style="background-color: green;" (click)="FillData(element)" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" >Edit</button>&nbsp;
+                                <button mat-raised-button style="background-color: rgb(223, 15, 15);" (click)="deleteData(element)">Delete</button>
                             </div>
                         </td>
                     </ng-container>
@@ -125,12 +128,9 @@
 ===================================================================== -->
 
 <!-- Button trigger modal -->
-<button type="button" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="clearEdit()">
-    <i class="bi bi-plus-circle-fill fs-1"></i>
+<button mat-fab color="primary"   class="btn add-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="clearEdit()">
+    <mat-icon>add</mat-icon>
 </button>
-
-
-
 
 <!-- Modal -->
 <div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -196,13 +196,13 @@
                     </div>
                 </div>
 
-                <!-- ==================================================================== 
+<!-- ==================================================================== 
                                 ADD DATA
 ===================================================================== -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        <button mat-raised-button data-bs-dismiss="modal"
                         (click)="clearEdit()">Close</button>
-                    <button type="button" class="btn btn-primary" (click)="addData()">ADD</button>
+                    <button mat-raised-button color="primary"  (click)="addData()">ADD</button>
                 </div>
             </div>
         </div>
